@@ -1,13 +1,14 @@
-#include<stdio.h>     // scanf ; printf;
+#include <iostream>
 #include<stdlib.h>   // malloc free; //realloc calloc//堆区的分配
 #include<assert.h>
 #include<string.h>
+
+using namespace std;
 
 struct Student {
     char s_id[20];
     char s_name[20];
     char s_sex[10];
-    char s_class[20];
     char s_major[20];
     int s_age;
 };
@@ -59,10 +60,9 @@ void PrintList(DuLinkList *plist)//打印函数
     assert(plist != nullptr);
     struct DuNode *p = plist->head->next; // 此时p指向第一个有数据的结点
     while (p != plist->head) {
-        //printf("%d ", p->data);
         p = p->next;
     }
-    printf("\n");
+    cout << endl;
 }
 
 struct DuNode *FindValue(DuLinkList *plist, ElemType val)//查询函数
@@ -117,7 +117,7 @@ bool EarseList(DuLinkList *plist, struct DuNode *ptr)//删除结点
     ptr->prev->next = ptr->next;
     ptr->next->prev = ptr->prev;
     plist->cursize -= 1;
-    printf("删除成功\n");
+    cout << "删除成功" << endl;
     return true;
 }
 
@@ -162,30 +162,31 @@ void DestroyList(DuLinkList *plist)//摧毁链表
 
 int FindMenu() {
     int select = 0;
-    printf("*****学生的查询*****\n");
-    printf("*  1. 按学号查询   *\n");
-    printf("*  2. 按姓名查询   *\n");
-    printf("*  3. 按性别查询   *\n");
-    printf("*  4. 按年龄查询   *\n");
-    printf("*  5. 按专业查询   *\n");
-    printf("*  0. 退出查询     *\n");
-    printf("********************\n");
-    printf("请选择..... \n");
-    scanf("%d", &select);
+
+    cout << "*****学生的查询*****" << endl;
+    cout << "*  1. 按学号查询   *" << endl;
+    cout << "*  2. 按姓名查询   *" << endl;
+    cout << "*  3. 按性别查询   *" << endl;
+    cout << "*  4. 按年龄查询   *" << endl;
+    cout << "*  5. 按专业查询   *" << endl;
+    cout << "*  0. 退出查询     *" << endl;
+    cout << "********************" << endl;
+    cout << "请选择..... " << endl;
+    cin >> select;
     return select;
 }
 
 int MainMenu() {
     int select = 0;
-    printf("*********学生信息管理系统*********\n");
-    printf("* 1. 添加                2.查询*\n");
-    printf("* 3. 修改                4.专业统计*\n");
-    printf("* 5. 显示                6.性别统计*\n");
-    printf("* 7. 年龄统计            8.删除*\n");
-    printf("* 9. 插入                0.退出*\n");
-    printf("******************************\n");
-    printf("请选择..... \n");
-    scanf("%d", &select);
+    cout << "*********学生信息管理系统*********" << endl;
+    cout << "* 1. 添加                2.查询*" << endl;
+    cout << "* 3. 修改                4.专业统计*" << endl;
+    cout << "* 5. 显示                6.性别统计*" << endl;
+    cout << "* 7. 年龄统计            8.删除*" << endl;
+    cout << "* 9. 插入                0.退出*" << endl;
+    cout << "******************************" << endl;
+    cout << "请选择..... " << endl;
+    cin >> select;
     return select;
 }
 
@@ -193,24 +194,37 @@ int MainMenu() {
 void AddStudent(DuLinkList *plist) {
     assert(plist != nullptr);
     struct Student tmp = {};
-    printf("请输入学生的学号: ");
-    scanf("%s", tmp.s_id);
-    printf("请输入学生的姓名: ");
-    scanf("%s", tmp.s_name);
-    printf("请输入学生的性别: ");
-    scanf("%s", tmp.s_sex);
-    printf("请输入学生的年龄: ");
-    scanf("%d", &tmp.s_age);
-    printf("请输入学生的专业: ");
-    scanf("%s", tmp.s_major);
+    cout << "请输入学生的学号: ";
+    cin >> tmp.s_id;
+    cout << "请输入学生的姓名: ";
+    cin >> tmp.s_name;
+    cout << "请输入学生的性别: ";
+    cin >> tmp.s_sex;
+    cout << "请输入学生的年龄: ";
+    cin >> tmp.s_age;
+    cout << "请输入学生的专业: ";
+    cin >> tmp.s_major;
     Push_back(plist, tmp);
 }
 
 //显示学生信息
 void PrintStudent(struct DuNode *p) {
     assert(p != nullptr);
-    printf("id: %-20s name: %-20s sex: %-10s age : %-8d  major:%-20s \n",
-           p->data.s_id, p->data.s_name, p->data.s_sex, p->data.s_age, p->data.s_major);
+    cout << "id: ";
+    cout.width(20);
+    cout << p->data.s_id;
+    cout << " name: ";
+    cout.width(20);
+    cout << p->data.s_name;
+    cout << " sex: ";
+    cout.width(10);
+    cout << p->data.s_sex;
+    cout << " age: ";
+    cout.width(8);
+    cout << p->data.s_age;
+    cout << " major: ";
+    cout.width(20);
+    cout << p->data.s_major << endl;
 }
 
 void ShowStudent(DuLinkList *plist) {
@@ -220,7 +234,7 @@ void ShowStudent(DuLinkList *plist) {
         PrintStudent(p);
         p = p->next;
     }
-    printf("\n-------------------------------------\n");
+    cout << "\n-------------------------------------" << endl;
 }
 
 
@@ -313,32 +327,32 @@ void FindStudent(DuLinkList *plist) {
             case 0:
                 break;
             case 1:
-                printf("请入学生的学号: ");
-                scanf("%s", id);
+                cout << "请入学生的学号: ";
+                cin >> id;
                 FindStudent_Id(plist, id);
                 break;
             case 2:
-                printf("请入学生的姓名: ");
-                scanf("%s", name);
+                cout << "请入学生的姓名: ";
+                cin >> name;
                 FindStudent_Name(plist, name);
                 break;
             case 3:
-                printf("请入学生的性别: ");
-                scanf("%s", sex);
+                cout << "请入学生的性别: ";
+                cin >> sex;
                 FindStudent_Sex(plist, sex);
                 break;
             case 4:
-                printf("请入学生的年龄: ");
-                scanf("%d", &age);
+                cout << "请入学生的年龄: ";
+                cin >> age;
                 FindStudent_Age(plist, age);
                 break;
             case 5:
-                printf("请入学生的专业: ");
-                scanf("%s", major);
+                cout << "请入学生的专业: ";
+                cin >> major;
                 FindStudent_Major(plist, major);
                 break;
             default:
-                printf("选择错误 .... 重新选择 \n");
+                cout << "选择错误 .... 重新选择 " << endl;
                 break;
         }
     } while (select != 0);
@@ -360,8 +374,8 @@ void CountGender(DuLinkList *plist) {
         }
         p = p->next;
     }
-    printf("女性人数：%d\n", male_count);
-    printf("男性人数：%d\n", female_count);
+    cout << "女性人数：" << male_count << endl;
+    cout << "男性人数：" << female_count << endl;
 }
 
 //根据专业统计
@@ -375,7 +389,7 @@ void CountStudent_Major(DuLinkList *plist, char major[]) {
         }
         p = p->next;
     }
-    printf("专业 %s 的学生人数为: %d\n", major, count);
+    cout << "专业 " << major << "的学生人数为:" << count << endl;
 }
 
 //根据年龄
@@ -389,7 +403,7 @@ void CountStudent_Age(DuLinkList *plist, int age) {
         }
         p = p->next;
     }
-    printf("Age %d: %d students\n", age, count);
+    cout << "Age " << age << ": " << count << " students" << endl;
 }
 
 
@@ -429,25 +443,25 @@ void ModifyStudent(DuLinkList *plist, char name[]) {
     struct DuNode *p = plist->head->next;
     while (p != plist->head) {
         if (strcmp(p->data.s_name, name) == 0) {
-            printf("该学生学号为：%s\n", p->data.s_id);
-            printf("请输入新的学号：\n");
-            scanf("%s", p->data.s_id);
+            cout << "该学生学号为：" << p->data.s_id << endl;
+            cout << "请输入新的学号：" << endl;
+            cin >> p->data.s_id;
 
-            printf("该学生姓名为：%s\n", p->data.s_name);
-            printf("请输入新的姓名：\n");
-            scanf("%s", p->data.s_name);
+            cout << "该学生姓名为：" << p->data.s_name << endl;
+            cout << "请输入新的姓名：" << endl;
+            cin >> p->data.s_name;
 
-            printf("该学生性别为：%s\n", p->data.s_sex);
-            printf("请输入新的性别：\n");
-            scanf("%s", p->data.s_sex);
+            cout << "该学生性别为：" << p->data.s_sex << endl;
+            cout << "请输入新的性别：" << endl;
+            cin >> p->data.s_sex;
 
-            printf("该学生年龄为：%d\n", p->data.s_age);
-            printf("请输入新的年龄：\n");
-            scanf("%d", &(p->data.s_age));
+            cout << "该学生年龄为：" << p->data.s_age << endl;
+            cout << "请输入新的年龄：" << endl;
+            cin >> p->data.s_age;
 
-            printf("该学生专业为：%s\n", p->data.s_major);
-            printf("请输入新的专业：\n");
-            scanf("%s", p->data.s_major);
+            cout << "该学生专业为：" << p->data.s_major << endl;
+            cout << "请输入新的专业：" << endl;
+            cin >> p->data.s_major;
 
         }
         p = p->next;
@@ -456,16 +470,16 @@ void ModifyStudent(DuLinkList *plist, char name[]) {
 
 struct Student InputStudent() {
     struct Student temp = {};
-    printf("输入学生的学号");
-    scanf("%s", temp.s_id);
-    printf("输入学生的姓名");
-    scanf("%s", temp.s_name);
-    printf("输入学生的性别");
-    scanf("%s", temp.s_sex);
-    printf("输入学生的年龄");
-    scanf("%d", &(temp.s_id));
-    printf("输入学生的专业");
-    scanf("%s", temp.s_major);
+    cout << "输入学生的学号";
+    cin >> temp.s_id;
+    cout << "输入学生的姓名";
+    cin >> temp.s_name;
+    cout << "输入学生的性别";
+    cin >> temp.s_sex;
+    cout << "输入学生的年龄";
+    cin >> temp.s_id;
+    cout << "输入学生的专业";
+    cin >> temp.s_major;
     return temp;
 
 
@@ -485,7 +499,7 @@ int main() {
         select = MainMenu();
         switch (select) {
             case 0:
-                printf("退出系统.....\n");
+                cout << "退出系统....." << endl;
                 break;
             case 1:
                 AddStudent(&studlist);
@@ -495,15 +509,15 @@ int main() {
                 break;
             case 3:
                 char name[20];
-                printf("请输入修改信息学生的姓名: ");
-                scanf("%s", name);
+                cout << "请输入修改信息学生的姓名: ";
+                cin >> name;
                 ModifyStudent(&studlist, name);
 
                 break;
             case 4:
                 char major[20];
-                printf("请输入要统计的专业: ");
-                scanf("%s", major);
+                cout << "请输入要统计的专业: ";
+                cin >> major;
                 CountStudent_Major(&studlist, major);
                 break;
             case 5:
@@ -514,40 +528,40 @@ int main() {
                 break;
             case 7:
                 int age;
-                printf("请输入要统计的年龄: ");
-                scanf("%d", &age);
+                cout << "请输入要统计的年龄: ";
+                cin >> age;
                 CountStudent_Age(&studlist, age);
                 break;
 
             case 8:
                 char stuId[20];
-                printf("请输入要删除的学生的学号: ");
-                scanf("%s", stuId);
+                cout << "请输入要删除的学生的学号: ";
+                cin >> stuId;
                 Remove(&studlist, stuId);
                 break;
             case 9: {
                 char id[20];
                 struct DuNode *newnode = Buynode();
-                printf("请输入要在哪个学号之前插入学生信息:");
-                scanf("%s", id);
+                cout << "请输入要在哪个学号之前插入学生信息:";
+                cin >> id;
                 struct DuNode *p = FindStudentId(&studlist, id);
                 assert(p != nullptr);
-                printf("请输入待插入学生的学号:");
-                scanf("%s", newnode->data.s_id);
-                printf("请输入待插入学生的姓名:");
-                scanf("%s", newnode->data.s_name);
-                printf("请输入待插入学生的性别:");
-                scanf("%s", newnode->data.s_sex);
-                printf("请输入待插入学生的年龄:");
-                scanf("%d", &(newnode->data.s_age));
-                printf("请输入待插入学生的专业:");
-                scanf("%s", newnode->data.s_major);
+                cout << "请输入待插入学生的学号:";
+                cin >> newnode->data.s_id;
+                cout << "请输入待插入学生的姓名:";
+                cin >> newnode->data.s_name;
+                cout << "请输入待插入学生的性别:";
+                cin >> newnode->data.s_sex;
+                cout << "请输入待插入学生的年龄:";
+                cin >> newnode->data.s_age;
+                cout << "请输入待插入学生的专业:";
+                cin >> newnode->data.s_major;
                 InsertNode(&studlist, p, newnode);
-                printf("插入成功");
+                cout << "插入成功";
                 break;
             }
             default:
-                printf("选择错误 .... 重新选择 \n");
+                cout << "选择错误 .... 重新选择 " << endl;
                 break;
         }
     } while (select != 0);
